@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TrashBin } from '../models/ITrashBin';
 import { mockTrashBins } from '../mock/TrashBin';
 import { Button, Typography } from '@mui/material';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 
 function TrashBinTable({ bins }: { bins: TrashBin[] }) {
@@ -83,10 +84,25 @@ export default function TrashBinDashboard() {
                     Sort by Fill Level
                 </Button>
             </div>
+            
             <Typography variant="h5" sx={{ textAlign: 'center' }} component="h5">
                 Trash Table
             </Typography>
             <TrashBinTable bins={sortedBins} />
+
+            <Typography variant="h5" sx={{ textAlign: 'center', mt: 8, mb: 2 }} component="h5">
+                Trash Bin Chart
+            </Typography>
+            <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={sortedBins}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="id" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="fillLevel" fill="#7b1fa2" barSize={100} />
+                </BarChart>
+            </ResponsiveContainer>
         </div>
     )
 }
