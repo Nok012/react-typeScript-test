@@ -1,0 +1,55 @@
+.trash-bin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.trash-bin-table th, .trash-bin-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.trash-bin-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #E0C2FF;
+    color: #47008F;
+}
+
+
+.highlight {
+    background-color: #ffcccc; /* สีแดงอ่อนสำหรับการเน้นแถว */
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* เพิ่มพื้นที่ระหว่าง input กับตาราง */
+}
+
+.sort-buttons {
+    margin-bottom: 10px; /* เพิ่มพื้นที่ระหว่างปุ่มจัดเรียงกับตาราง */
+}
+
+.sort-buttons button {
+    margin-right: 10px; /* เพิ่มพื้นที่ระหว่างปุ่มจัดเรียง */
+    padding: 8px;
+    background-color: #E0C2FF;
+    color: #47008F;
+    border: none;
+    cursor: pointer;
+}
+
+.sort-buttons button:hover {
+    background-color: #7b1fa2;
+    color: white;
+}
+
+
+.leaflet-container {
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+}

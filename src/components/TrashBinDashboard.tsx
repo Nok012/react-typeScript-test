@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import './TrashBinDashboard.css';
 import { TrashBin } from '../models/ITrashBin';
 import { mockTrashBins } from '../mock/TrashBin';
-import { Button, Typography } from '@mui/material';
+import { Button, Container, CssBaseline, Typography } from '@mui/material';
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -114,6 +115,8 @@ export default function TrashBinDashboard() {
 
     return (
         <div>
+            <CssBaseline />
+            <Container maxWidth="lg">
             <Typography variant="h3" sx={{ textAlign: 'center', mt: 8, mb: 4 }} component="h3">
                 Trash Bin Dashboard
             </Typography>
@@ -155,6 +158,7 @@ export default function TrashBinDashboard() {
                 Trash Bin Map
             </Typography>
             <TrashBinMap bins={sortedBins} />
+            </Container>
         </div>
     )
 }
