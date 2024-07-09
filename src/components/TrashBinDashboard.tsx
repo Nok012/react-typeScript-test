@@ -3,6 +3,9 @@ import { TrashBin } from '../models/ITrashBin';
 import { mockTrashBins } from '../mock/TrashBin';
 import { Button, Typography } from '@mui/material';
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 
 function TrashBinTable({ bins }: { bins: TrashBin[] }) {
@@ -27,6 +30,50 @@ function TrashBinTable({ bins }: { bins: TrashBin[] }) {
                     ))}
                 </tbody>
             </table>
+        </div>
+    );
+};
+
+function TrashBinMap({ bins }: { bins: TrashBin[] }) {
+
+    const getMarkerIcon = (fillLevel: number) => {
+        if (fillLevel > 79) return 'icons/marker-red.png';
+        return 'icons/marker-green.png';
+    };
+
+    const createCustomIcon = (iconUrl: string) => {
+        return new L.Icon({
+            iconUrl,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41],
+            shadowAnchor: [12, 41]
+        });
+    };
+
+    return (
+        <div>
+
+            <MapContainer center={[13.7563, 100.5018]} zoom={13} style={{ height: "500px", width: "100%" }}>
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                {bins.map((bin) => (
+                    <Marker
+                        key={bin.id}
+                        position={bin.coordinates}
+                        icon={createCustomIcon(getMarkerIcon(bin.fillLevel))}
+                    >
+                        <Popup>
+                            <b>ID:</b> {bin.id} <br />
+                            <b>Location:</b> {bin.location} <br />
+                            <b>Fill Level:</b> {bin.fillLevel}%
+                        </Popup>
+                    </Marker>
+                ))}
+            </MapContainer>
         </div>
     );
 };
@@ -84,7 +131,7 @@ export default function TrashBinDashboard() {
                     Sort by Fill Level
                 </Button>
             </div>
-            
+
             <Typography variant="h5" sx={{ textAlign: 'center' }} component="h5">
                 Trash Table
             </Typography>
@@ -103,6 +150,11 @@ export default function TrashBinDashboard() {
                     <Bar dataKey="fillLevel" fill="#7b1fa2" barSize={100} />
                 </BarChart>
             </ResponsiveContainer>
+
+            <Typography variant="h5" sx={{ textAlign: 'center', mt: 8, mb: 2 }} component="h5">
+                Trash Bin Map
+            </Typography>
+            <TrashBinMap bins={sortedBins} />
         </div>
     )
 }
